@@ -1,6 +1,9 @@
 @use 'fonts' as *
-@use 'adapt' as *
 
+
+// ==========================================
+// БАЗОВЫЕ СТИЛИ
+// ==========================================
 *, body
     margin: 0
     padding: 0
@@ -15,17 +18,20 @@ p
     padding: 0 80px
     box-sizing: border-box
 
+// ==========================================
+// HEADER
+// ==========================================
 .header
     position: fixed
     top: 0
     left: 0
     width: 100%
     background: transparent
-    transition: background 0.3s ease, backdrop-filter 0.3s ease
-    z-index: 1000
     padding: 40px 0
+    z-index: 1000
     backdrop-filter: blur(10px)
     box-shadow: 0 4px 20px rgba(0,0,0,0.05)
+    transition: background 0.3s ease, backdrop-filter 0.3s ease
 
     .container
         display: flex
@@ -34,8 +40,8 @@ p
 
     &.scrolled
         .logo a
-            text-decoration: none
             color: #1E1E1E
+            text-decoration: none
             transition: .5s
 
             &:hover
@@ -44,7 +50,7 @@ p
         .nav a
             color: #1E1E1E
 
-            svg path 
+            svg path
                 fill: #1E1E1E
 
             &::after
@@ -56,7 +62,7 @@ p
         .dropdown-trigger
             color: #1E1E1E
 
-            svg path 
+            svg path
                 fill: #1E1E1E
 
         .dropdown:hover .dropdown-trigger svg path
@@ -69,41 +75,51 @@ p
                 content: none
                 height: 0
 
-        // 👇 КОРЗИНА отдельно
         .busket
-            svg path 
+            svg path
                 fill: #1E1E1E
                 transition: fill 0.3s ease
 
             &:hover svg path
                 fill: #E58411
 
-.logo
-    a
-        font-family: $Gilroy-Bold
-        font-size: 28px
-        line-height: 33px
-        letter-spacing: 0.01em
-        text-transform: capitalize
-        color: #FFFFFF
-        transition: color 0.3s ease
-        text-decoration: none
+        .burger-menu span
+            background: #1E1E1E  // Меняем цвет на темный когда хедер скроллится
 
-        &:hover
-            color: #E58411
+        .burger-menu.active span
+            background: #1E1E1E
 
+// ==========================================
+// LOGO
+// ==========================================
+.logo a
+    font-family: $Gilroy-Bold
+    font-size: 28px
+    line-height: 33px
+    letter-spacing: 0.01em
+    text-transform: capitalize
+    color: #FFFFFF
+    text-decoration: none
+    transition: color 0.3s ease
+
+    &:hover
+        color: #E58411
+
+// ==========================================
+// NAVIGATION
+// ==========================================
 .nav
     display: flex
     gap: 64px
 
     a
+        position: relative
         font-family: $Gilroy-Medium
         font-size: 18px
         line-height: 21px
         color: #FFFFFF
         text-decoration: none
         padding-bottom: 2px
-        position: relative
         transition: color 0.3s ease
 
         &:hover
@@ -126,27 +142,31 @@ p
         &:hover::after
             transform: translateX(-50%) scaleX(1)
 
+// ==========================================
+// DROPDOWN
+// ==========================================
 .dropdown
     position: relative
     display: inline-block
 
-    &:hover, &:active
-        &-trigger
+    &:hover,
+    &:active
+        .dropdown-trigger
             color: #E58411 !important
 
-            svg path 
-            fill: #E58411
+            svg path
+                fill: #E58411
 
 .dropdown-trigger
-    cursor: pointer
+    display: flex
+    align-items: center
+    gap: 8px
     font-family: $Gilroy-Medium
     font-size: 18px
     line-height: 21px
     color: #FFFFFF
     text-decoration: none
-    display: flex
-    align-items: center
-    gap: 8px
+    cursor: pointer
     transition: color 0.3s ease
 
     svg
@@ -165,18 +185,18 @@ p
     position: absolute
     top: 100%
     left: 0
-    background: white
     min-width: 180px
+    margin-top: 10px
+    padding: 10px 0
+    list-style: none
+    background: white
     border-radius: 12px
     box-shadow: 0 10px 30px rgba(0,0,0,0.1)
-    padding: 10px 0
-    margin-top: 10px
     opacity: 0
     visibility: hidden
     transform: translateY(-10px)
-    transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease
-    list-style: none
     z-index: 100
+    transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease
 
 .dropdown:hover .dropdown-menu
     opacity: 1
@@ -196,6 +216,52 @@ p
     &:hover
         background: #f5f5f5
 
+// ==========================================
+// ХЕДЕР - правые элементы
+// ==========================================
+.header-actions
+    display: flex
+    align-items: center
+    gap: 20px
+
+// ==========================================
+// БУРГЕР-МЕНЮ
+// ==========================================
+.burger-menu
+    display: none  // Скрыт на десктопе
+    flex-direction: column
+    justify-content: space-between
+    width: 28px
+    height: 20px
+    background: none
+    border: none
+    cursor: pointer
+    padding: 0
+    z-index: 1001
+
+    span
+        display: block
+        width: 100%
+        height: 2px
+        background: #FFFFFF
+        border-radius: 2px
+        transition: all 0.3s ease
+        transform-origin: center
+
+    &.active
+        span:nth-child(1)
+            transform: translateY(9px) rotate(45deg)
+        
+        span:nth-child(2)
+            opacity: 0
+            transform: scaleX(0)
+        
+        span:nth-child(3)
+            transform: translateY(-9px) rotate(-45deg)
+
+// ==========================================
+// КОРЗИНА (всегда видна)
+// ==========================================
 .busket
     display: flex
     align-items: center
@@ -206,165 +272,196 @@ p
     &:hover svg path
         fill: #E58411
 
+// ==========================================
+// ОВЕРЛЕЙ
+// ==========================================
+.nav-overlay
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background: rgba(0, 0, 0, 0.5)
+    z-index: 999
+    opacity: 0
+    visibility: hidden
+    transition: all 0.3s ease
+
+    &.active
+        opacity: 1
+        visibility: visible
+
+// ==========================================
+// HERO (PANTO)
+// ==========================================
 .panto
+    height: 1084px
+    padding-top: 100px
     background-image: url(../image/background.png)
     background-repeat: no-repeat
     background-position: bottom
     background-size: cover
-    padding-top: 100px
-    height: 1084px
 
-.panto .container
-    display: flex
-    flex-direction: column
-    align-items: center
+    .container
+        display: flex
+        flex-direction: column
+        align-items: center
 
 h1
+    margin: 0 0 14px
     padding: 58px 0 0
-    margin: 0
     font-family: $Gilroy-Bold
     font-size: 80px
     line-height: 130%
     text-align: center
     letter-spacing: -0.01em
     color: #FFFFFF
-    margin-bottom: 14px
 
 .panto_desc
     margin-bottom: 45px
 
-.panto_desc p
-    font-family: $Gilroy-Regular
-    font-size: 24px
-    line-height: 160%
-    text-align: center
-    color: #FFFFFF
-    opacity: 0.8
+    p
+        font-family: $Gilroy-Regular
+        font-size: 24px
+        line-height: 160%
+        text-align: center
+        color: #FFFFFF
+        opacity: 0.8
 
+// ==========================================
+// SEARCH INPUT
+// ==========================================
 .input-wrapper
     position: relative
     display: inline-block
 
 .input-with-svg
-    box-sizing: border-box
     display: flex
-    flex-direction: row
-    justify-content: space-between
     align-items: center
-    padding: 8px 8px 8px 20px
-    gap: 10px
+    justify-content: space-between
     width: 344px
     height: 56px
+    padding: 8px 8px 8px 20px
+    gap: 10px
+    box-sizing: border-box
     background: rgba(255, 255, 255, 0.15)
     border: 0.861538px solid rgba(255, 255, 255, 0.6)
-    backdrop-filter: blur(4px)
     border-radius: 42px
     outline: none
-    color: #FFFFFF
+    backdrop-filter: blur(4px)
     font-family: $Gilroy-Regular
     font-size: 18px
+    color: #FFFFFF
+
+    &::placeholder
+        font-family: $Gilroy-Regular
+        font-size: 18px
+        color: #FFFFFF
 
 .input-icon
     position: absolute
-    right: 8px
     top: 50%
+    right: 8px
     transform: translateY(-50%)
     pointer-events: none
 
-.input-icon svg
-    width: 40px
-    height: 40px
-    display: block
+    svg
+        display: block
+        width: 40px
+        height: 40px
 
-.input-with-svg::placeholder
-    font-family: $Gilroy-Regular
-    font-size: 18px
-    color: #FFFFFF
-
+// ==========================================
+// CHOOSE (WHY CHOOSING US)
+// ==========================================
 .choose
     padding: 120px 0
 
+    .container
+        display: flex
+        justify-content: space-between
+        align-items: center
+
 h2
+    margin: 0
+    padding: 0
     font-family: $Gilroy-Bold
     font-size: 42px
     line-height: 49px
     color: #1E1E1E
-    margin: 0
-    padding: 0
 
-.choose .container
-    display: flex
-    justify-content: space-between
-    align-items: center
+.choose-title-adapt
+    display: none
 
 .choose-cards
     display: flex
     gap: 28px
+    flex-wrap: wrap
 
     .choose-card
-        .card-text-full 
+        .card-text-full
             max-height: 0
+            margin: 0
             overflow: hidden
             opacity: 0
             transition: max-height 0.5s ease, opacity 0.5s ease, margin 0.5s ease
-            margin: 0
-            
-            p 
+
+            p
+                margin: 0
                 font-family: $Gilroy-Regular
                 font-size: 16px
                 line-height: 185%
                 color: #1E1E1E
-                margin: 0
-            
-            
-            &.open 
+
+            &.open
                 max-height: 500px
-                opacity: 1
                 margin: 0 0 14px 0
-            
-        
+                opacity: 1
 
-.choose-card h3
-    font-family: $Gilroy-Bold
-    font-size: 24px
-    line-height: 28px
-    color: #1E1E1E
-    margin-bottom: 20px
+.choose-card
+    h3
+        margin-bottom: 20px
+        font-family: $Gilroy-Bold
+        font-size: 24px
+        line-height: 28px
+        color: #1E1E1E
 
-.choose-card p
-    font-family: $Gilroy-Regular
-    font-size: 16px
-    line-height: 185%
-    color: #1E1E1E
-    width: 284px
-    margin-bottom: 14px
+    p
+        width: 284px
+        margin-bottom: 14px
+        font-family: $Gilroy-Regular
+        font-size: 16px
+        line-height: 185%
+        color: #1E1E1E
 
-.choose-card a
-    font-family: $Gilroy-Medium
-    font-size: 14px
-    line-height: 185%
-    color: #E58411
-    text-decoration: none
-    display: flex
-    align-items: center
-    gap: 13px
-    cursor: pointer
-    transition: color 0.5s ease
+    a
+        display: flex
+        align-items: center
+        gap: 13px
+        font-family: $Gilroy-Medium
+        font-size: 14px
+        line-height: 185%
+        color: #E58411
+        text-decoration: none
+        cursor: pointer
+        transition: color 0.5s ease
 
-.choose-card a svg
-    transition: transform 0.5s ease
+        svg
+            transition: transform 0.5s ease
 
-.choose-card a:hover
-    color: #b4690c
+        &:hover
+            color: #b4690c
 
-.choose-card a:hover svg
-    transform: translateX(10px)
+            svg
+                transform: translateX(10px)
 
-.choose-card a:hover svg path
-    stroke: #b4690c
-    transition: stroke 0.5s ease
+            svg path
+                stroke: #b4690c
+                transition: stroke 0.5s ease
 
-.read-more-btn 
+// ==========================================
+// READ MORE BUTTON
+// ==========================================
+.read-more-btn
     display: inline-flex
     align-items: center
     gap: 13px
@@ -375,35 +472,34 @@ h2
     text-decoration: none
     cursor: pointer
     transition: color 0.3s ease
-    
-    svg 
+
+    svg
         transition: transform 0.5s ease
-    
-    
-    &.active 
-        svg 
-            transform: rotate(180deg)
-        
-    
-    
-    &:hover 
+
+    &.active svg
+        transform: rotate(180deg)
+
+    &:hover
         color: #b4690c
-        
-        svg path 
+
+        svg path
             stroke: #b4690c
             transition: stroke 0.3s ease
-        
-    
 
-
+// ==========================================
+// PRODUCTS
+// ==========================================
 .products
     padding: 120px 0
     background: #F7F7F7
 
-.products h2
-    text-align: center
-    margin-bottom: 32px
+    h2
+        margin-bottom: 32px
+        text-align: center
 
+// ==========================================
+// TABS
+// ==========================================
 .tabs
     display: flex
     flex-direction: column
@@ -412,399 +508,476 @@ h2
 
 .tabs-header
     display: flex
+    align-items: center
+    width: 336px
+    margin-bottom: 80px
+    padding: 0 6px
     background: #EEEEEE
     border-radius: 44px
-    width: 336px
-    align-items: center
-    padding: 0 6px
-    margin-bottom: 80px
 
 .tab-btn
+    width: 84px
+    height: 57px
+    padding: 10px 20px
     background: none
     border: none
-    padding: 10px 20px
+    border-bottom: 2px solid transparent
     font-family: $Gilroy-Medium
     font-size: 18px
-    cursor: pointer
     color: #1E1E1E
-    transition: all 0.3s
-    border-bottom: 2px solid transparent
-    height: 57px
-    width: 84px
+    cursor: pointer
     transition: .5s
 
     &.active
         display: flex
-        flex-direction: row
-        justify-content: center
         align-items: center
+        justify-content: center
+        width: 84px
+        height: 45px
         padding: 4px
         gap: 10px
-        height: 45px
         background: #FFFFFF
         border-radius: 32px
 
     &:hover
+        height: 45px
         background: #FFFFFF
         border-radius: 32px
-        height: 45px
 
 .tab-pane
     display: none
     animation: fadeIn 1s ease
 
-.tab-pane.active
-    display: block
+    &.active
+        display: block
 
 @keyframes fadeIn
     from
         opacity: 0
         transform: translateY(10px)
-
     to
         opacity: 1
         transform: translateY(0)
 
+
+// ==========================================
+// СЛАЙДЕР
+// ==========================================
 .slider
     position: relative
     width: 100%
-    width: 1200px
+    max-width: 1200px
     margin: 0 auto
-    overflow: visible
+    padding: 0 50px
+    box-sizing: border-box
 
     &-container
         overflow: hidden
+        width: 100%
 
     &-track
         display: flex
         transition: transform 0.5s ease
+        will-change: transform
 
     .slide
-        flex: 0 0 25%
+        flex: 0 0 25%  // Базовое значение (будет переопределено JS)
         padding: 0 10px
         box-sizing: border-box
 
     .card
-        border-radius: 20px
-        width: 268px
-        background: #FAFAFA
         display: flex
         flex-direction: column
+        background: #FAFAFA
+        border-radius: 20px
+
+        &-image
+            display: flex
+            align-items: center
+            justify-content: center
+            height: 289px
+
+            img
+                padding: 0 25px 33px
+                max-width: 100%
+                height: auto
 
     &-btn
         position: absolute
         top: 50%
         transform: translateY(-50%)
-        background: white
-        border: none
-        width: 40px
-        height: 40px
-        border-radius: 50%
-        cursor: pointer
+        z-index: 10
         display: flex
         align-items: center
         justify-content: center
+        width: 40px
+        height: 40px
+        background: white
+        border: none
+        border-radius: 50%
         box-shadow: 0 2px 10px rgba(0,0,0,0.1)
+        cursor: pointer
         transition: all 0.3s ease
-        z-index: 10
 
         &:hover
             background: #E58411
-            color: white
 
-        &:hover svg path
-            stroke: white
+            svg path
+                stroke: white
 
         &.prev
-            left: -10px
+            left: 40px
 
         &.next
-            right: 0px
+            right: 40px
 
+        &.hidden
+            display: none 
+
+
+// ==========================================
+// CARD
+// ==========================================
 .card
-
-    &-image
-        height: 289px
-        display: flex
-        align-items: center
-        justify-content: center
-
-        img
-            padding: 0 25px 33px
-    
     border-radius: 20px 20px 0 0
 
-.card-desc
-    background: #FFFFFF
-    padding: 14px 22px 28px 22px
-    border-radius: 0 0 20px 20px
+    &-desc
+        padding: 14px 22px 28px 22px
+        background: #FFFFFF
+        border-radius: 0 0 20px 20px
 
-.card-desc p
-    font-family: $Inter-Regular
-    font-style: normal
-    font-weight: 400
-    font-size: 16.7554px
-    line-height: 20px
-    color: #8D8D8D
-    margin-bottom: 6px
+        p
+            margin-bottom: 6px
+            font-family: $Inter-Regular
+            font-weight: 400
+            font-size: 16.7554px
+            line-height: 20px
+            color: #8D8D8D
 
-.card-desc h4
-    font-family: $Inter-Semibold
-    font-style: normal
-    font-weight: 600
-    font-size: 21.3251px
-    line-height: 26px
-    text-transform: capitalize
-    color: #0D1B39
-    margin: 0 0 6px 0
+        h4
+            margin: 0 0 6px 0
+            font-family: $Inter-Semibold
+            font-weight: 600
+            font-size: 21.3251px
+            line-height: 26px
+            text-transform: capitalize
+            color: #0D1B39
 
-.card-stars
-    margin-bottom: 37px
+    &-stars
+        margin-bottom: 37px
 
-.card-cost
-    display: flex
-    justify-content: space-between
-    align-items: center
+    &-cost
+        display: flex
+        justify-content: space-between
+        align-items: center
 
-.card-cost p
-    font-family: $Inter-Semibold
-    font-style: normal
-    font-weight: 600
-    font-size: 21.3251px
-    line-height: 26px
-    color: #0D1B39
-    margin: 0
+        p
+            margin: 0
+            font-family: $Inter-Semibold
+            font-weight: 600
+            font-size: 21.3251px
+            line-height: 26px
+            color: #0D1B39
 
-.card-cost p span
-    font-style: normal
-    font-weight: 600
-    font-size: 16px
-    line-height: 18px
-    color: #0D1B39
+            span
+                font-weight: 600
+                font-size: 16px
+                line-height: 18px
+                color: #0D1B39
 
+// ==========================================
+// PLUS BUTTON
+// ==========================================
 .plus-btn
     display: flex
     align-items: center
-    padding: 12.1858px
-    gap: 15.23px
+    justify-content: center
     width: 48.74px
     height: 48.74px
+    padding: 12.1858px
+    gap: 15.23px
     background: #0D1B39
-    border-radius: 31px
     border: none
-    justify-content: center
+    border-radius: 31px
     cursor: pointer
     transition: .5s
 
     &:hover
         background: #E58411
 
+// ==========================================
+// VIEW ALL
+// ==========================================
 .view_all
     display: flex
     justify-content: center
 
-.view_all a
-    font-family: $Gilroy-Medium
-    font-size: 18px
-    line-height: 185%
-    color: #E58411
-    display: flex
-    align-items: center
-    gap: 11px
-    text-decoration: none
-    border: 1px solid #E58411
-    border-radius: 20px
-    padding: 12px 30px
+    a
+        display: flex
+        align-items: center
+        gap: 11px
+        padding: 12px 30px
+        font-family: $Gilroy-Medium
+        font-size: 18px
+        line-height: 185%
+        color: #E58411
+        text-decoration: none
+        border: 1px solid #E58411
+        border-radius: 20px
 
-.view_all a svg
-    transition: transform 0.5s ease
+        svg
+            transition: transform 0.5s ease
 
-.view_all a:hover
-    color: #b4690c
-    border: 1px solid #b4690c
+        &:hover
+            color: #b4690c
+            border-color: #b4690c
 
-.view_all a:hover svg
-    transform: translateX(10px)
+            svg
+                transform: translateX(10px)
 
-.view_all a:hover svg path
-    stroke: #b4690c
-    transition: stroke 0.5s ease
+            svg path
+                stroke: #b4690c
+                transition: stroke 0.5s ease
 
+// ==========================================
+// PROVIDE
+// ==========================================
 .provide
     padding: 120px 0 60px 0
 
-.provide-desc
-    display: flex
-    gap: 80px
+    &-desc
+        display: flex
+        gap: 80px
 
-.provide-info
-    padding-top: 83px
-    max-width: 556px
+    &-info
+        max-width: 556px
+        padding-top: 83px
 
-.provide-info
-        .card-text-full 
+        .card-text-full
             max-height: 0
+            margin: 0
             overflow: hidden
             opacity: 0
             transition: max-height 0.5s ease, opacity 0.5s ease, margin 0.5s ease
-            margin: 0
-            
-            p 
+
+            p
+                margin: 0
                 font-family: $Gilroy-Regular
                 font-size: 18px
                 line-height: 185%
                 color: #1E1E1E
-                margin: 0
-            
-            
-            &.open 
+
+            &.open
                 max-height: 500px
-                opacity: 1
                 margin: 0 0 24px 0
-    
+                opacity: 1
 
-.provide-info .provide-info__exper,
-.materials-info .materials-info__material,
-.testimonials-info .testimonials-info__material
-    font-family: $Gilroy-Semibold
-    font-size: 18px
-    line-height: 21px
-    letter-spacing: 0.175em
-    text-transform: uppercase
-    color: #E58411
-    margin-bottom: 20px
+        .provide-info__exper
+            margin-bottom: 20px
+            font-family: $Gilroy-Semibold
+            font-size: 18px
+            line-height: 21px
+            letter-spacing: 0.175em
+            text-transform: uppercase
+            color: #E58411
 
-.provide-info h2, .materials-info h2, .testimonials-info h2
-    font-family: $Gilroy-Bold
-    font-size: 42px
-    line-height: 49px
-    text-transform: capitalize
-    color: #1E1E1E
-    margin-bottom: 20px
+        h2
+            margin-bottom: 20px
+            font-family: $Gilroy-Bold
+            font-size: 42px
+            line-height: 49px
+            text-transform: capitalize
+            color: #1E1E1E
 
-.provide-info p, .materials-info p
-    font-family: $Gilroy-Regular
-    font-size: 18px
-    line-height: 185%
-    color: #1E1E1E
-    opacity: 0.8
-    margin-bottom: 24px
+        p
+            margin-bottom: 24px
+            font-family: $Gilroy-Regular
+            font-size: 18px
+            line-height: 185%
+            color: #1E1E1E
+            opacity: 0.8
 
-.provide-info a, .materials-info a
-    font-family: $Gilroy-Medium
-    font-size: 14px
-    line-height: 185%
-    color: #E58411
-    display: flex
-    align-items: center
-    gap: 11px
-    text-decoration: none
+        a
+            display: flex
+            align-items: center
+            gap: 11px
+            font-family: $Gilroy-Medium
+            font-size: 14px
+            line-height: 185%
+            color: #E58411
+            text-decoration: none
 
-.provide-info a svg, .materials-info a svg
-    transition: transform 0.5s ease
+            svg
+                transition: transform 0.5s ease
 
-.provide-info a:hover, .materials-info a:hover
-    color: #b4690c
+            &:hover
+                color: #b4690c
 
-.provide-info a:hover svg, .materials-info a:hover svg
-    transform: translateX(10px)
+                svg
+                    transform: translateX(10px)
 
-.provide-info a:hover svg path, .materials-info a:hover svg path
-    stroke: #b4690c
-    transition: stroke 0.5s ease
+                svg path
+                    stroke: #b4690c
+                    transition: stroke 0.5s ease
 
+// ==========================================
+// MATERIALS
+// ==========================================
 .materials
-    padding: 60px 0
     display: flex
     justify-content: flex-end
     gap: 94px
+    padding: 60px 0
 
-.provide-info, .materials-info
-    padding: 124px 0 0 80px
-    max-width: 556px
+    &-info
+        max-width: 556px
+        padding: 124px 0 0 80px
 
-.materials-info
-        .card-text-full 
+        .card-text-full
             max-height: 0
+            margin: 0
             overflow: hidden
             opacity: 0
             transition: max-height 0.5s ease, opacity 0.5s ease, margin 0.5s ease
-            margin: 0
-            
-            p 
+
+            p
+                margin: 0
                 font-family: $Gilroy-Regular
                 font-size: 18px
                 line-height: 185%
                 color: #1E1E1E
-                margin: 0
-            
-            
-            &.open 
+
+            &.open
                 max-height: 500px
-                opacity: 1
                 margin: 0 0 24px 0
+                opacity: 1
 
+        .materials-info__material
+            margin-bottom: 20px
+            font-family: $Gilroy-Semibold
+            font-size: 18px
+            line-height: 21px
+            letter-spacing: 0.175em
+            text-transform: uppercase
+            color: #E58411
+
+        h2
+            margin-bottom: 20px
+            font-family: $Gilroy-Bold
+            font-size: 42px
+            line-height: 49px
+            text-transform: capitalize
+            color: #1E1E1E
+
+        p
+            margin-bottom: 24px
+            font-family: $Gilroy-Regular
+            font-size: 18px
+            line-height: 185%
+            color: #1E1E1E
+            opacity: 0.8
+
+        a
+            display: flex
+            align-items: center
+            gap: 11px
+            font-family: $Gilroy-Medium
+            font-size: 14px
+            line-height: 185%
+            color: #E58411
+            text-decoration: none
+
+            svg
+                transition: transform 0.5s ease
+
+            &:hover
+                color: #b4690c
+
+                svg
+                    transform: translateX(10px)
+
+                svg path
+                    stroke: #b4690c
+                    transition: stroke 0.5s ease
+
+
+// ==========================================
+// TESTIMONIALS
+// ==========================================
 .testimonials
-    padding: 60px 0 0 0
+    padding: 60px 0 0
 
-    .testimonials-info__material, h2
+    .testimonials-info__material
+        margin-bottom: 20px
+        font-family: $Gilroy-Semibold
+        font-size: 18px
+        line-height: 21px
+        letter-spacing: 0.175em
+        text-transform: uppercase
+        color: #E58411
         text-align: center
 
     h2
         margin-bottom: 60px
+        text-align: center
 
     &-slider
         position: relative
-        overflow: visible
-        display: flex
-        justify-content: center 
+        max-width: 1200px
+        margin: 0 auto
+        padding: 0 60px
 
     &-container
         overflow: hidden
-        width: calc(370px * 3 + 30px * 2) 
-        margin: 0 auto
-        padding-bottom: 60px
 
     &-track
         display: flex
-        transition: transform 0.5s ease
         gap: 30px
+        transition: transform 0.5s ease
+        will-change: transform
 
     .testimonial-slide
-        flex: 0 0 370px
-        width: 370px
-        height: 476px
+        flex: 0 0 calc(33.333% - 20px)
+        min-width: 0
 
     .testimonial-card
         height: 476px
         display: flex
         align-items: flex-end
+        border-radius: 18px
         box-shadow: 0px 12px 15px #D7CBC0
-        border-radius: 18.12px
+        background-size: cover
+        background-position: center
 
         &-info
-            background-image: url('../image/review/back-review.svg')
-            border-radius: 18px
+            width: 100%
             margin: 0 18px 18px
+            padding: 9px 0 0
+            background-image: url('../image/review/back-review.svg')
             background-repeat: no-repeat
+            background-position: top
+            background-size: cover
+            border-radius: 18px
 
             &__img
                 display: flex
                 justify-content: center
-                padding-top: 8px
+                // padding-top: 8px
                 margin-bottom: 13px
 
                 img
-                    box-shadow: 0px 5px 15px #C7C3BB
+                    width: 50px
+                    height: 50px
                     border-radius: 50%
+                    object-fit: cover
+                    box-shadow: 0px 5px 15px #C7C3BB
 
             &-name
                 display: flex
-                justify-content: center
                 flex-direction: column
                 align-items: center
-                margin-bottom: 22px
                 gap: 6px
+                margin-bottom: 22px
 
                 h4
                     margin: 0
@@ -815,33 +988,35 @@ h2
                     color: #1E1E1E
 
                 p
+                    margin: 0
                     font-family: $Gilroy-Regular
                     font-size: 12px
                     line-height: 14px
                     color: #1E1E1E
                     opacity: 0.8
 
-            
-
-
         .testimonial-text
+            padding: 0 30px
+            margin-bottom: 22px
             font-family: $Gilroy-Regular
             font-size: 14px
-            line-height: 16px
+            line-height: 160%
             text-align: center
             color: #1E1E1E
             opacity: 0.8
-            padding: 0 40px
-            margin-bottom: 22px
+            display: -webkit-box
+            -webkit-line-clamp: 2  // Ограничиваем 3 строками
+            -webkit-box-orient: vertical
+            overflow: hidden
+            text-overflow: ellipsis
+            max-height: 4.8em  // 3 строки * 1.6 line-height
+            line-height: 1.6
 
         .review-stars
-            padding-bottom: 17px
             display: flex
             justify-content: center
             gap: 7px
-
-            svg
-                padding: 2px
+            padding-bottom: 17px
 
     .testimonial-slide:nth-child(1) .testimonial-card
         background-image: url('../image/review/review-1.png')
@@ -857,94 +1032,98 @@ h2
 
     .testimonials-btn
         position: absolute
-        top: 25%
-        background: white
-        border: none
-        width: 50px
-        height: 50px
-        border-radius: 50%
-        cursor: pointer
+        top: 50%
+        transform: translateY(-50%)
+        z-index: 10
         display: flex
         align-items: center
         justify-content: center
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1)
+        width: 50px
+        height: 50px
+        background: #FFFFFF
+        border: none
+        border-radius: 50%
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1)
+        cursor: pointer
         transition: all 0.3s ease
-        z-index: 10
 
         &:hover
             background: #E58411
-            color: white
 
-            &:hover svg path
-                stroke: white
+            svg path
+                stroke: #FFFFFF
 
         &.prev
-            left: 2%
+            left: 0
 
         &.next
-            right: 2%
+            right: 0
+
+        &.hidden
+            display: none
 
     .testimonials-info-link
         display: flex
         justify-content: center
+        margin-top: 60px
         margin-bottom: 120px
 
         a
+            display: flex
+            align-items: center
+            gap: 11px
+            padding: 12px 30px
             font-family: $Gilroy-Medium
             font-size: 18px
             line-height: 185%
             color: #E58411
-            display: flex
-            align-items: center
-            gap: 11px
             text-decoration: none
             border: 1px solid #E58411
             border-radius: 20px
-            padding: 12px 30px
+            transition: all 0.3s ease
 
-    .testimonials-info-link a svg
-        transition: transform 0.5s ease
+            svg
+                transition: transform 0.5s ease
 
-    .testimonials-info-link a:hover
-        color: #b4690c
-        border: 1px solid #b4690c
+            &:hover
+                color: #b4690c
+                border-color: #b4690c
 
-    .testimonials-info-link a:hover svg
-        transform: translateX(10px)
+                svg
+                    transform: translateX(10px)
 
-    .testimonials-info-link a:hover svg path
-        stroke: #b4690c
-    transition: stroke 0.5s ease
+                svg path
+                    stroke: #b4690c
 
-
-
+// ==========================================
+// FOOTER
+// ==========================================
 footer
     background: #F7F7F7
 
     .container-footer
-        // padding: 0 188px
         max-width: 1440px
         margin: 0 auto
         padding: 0 80px
         box-sizing: border-box
 
         &-info
-            padding: 120px 0
             display: flex
             gap: 110px
+            padding: 120px 0
 
             &-description
                 width: 293px
                 margin-right: 42px
 
                 &-logo
+                    margin-bottom: 29px
                     font-family: $Gilroy-Bold
                     font-size: 28px
                     line-height: 33px
                     letter-spacing: 0.01em
                     text-transform: capitalize
                     color: #1E1E1E
-                    margin-bottom: 29px
 
                 &-desc
                     font-family: $Gilroy-Medium
@@ -957,14 +1136,13 @@ footer
                 width: 133px
 
                 p
+                    margin-bottom: 20px
                     font-family: $DM-Sans-Regular
-                    font-style: normal
                     font-weight: 400
                     font-size: 17px
                     line-height: 22px
                     letter-spacing: -0.231818px
                     color: #F6973F
-                    margin-bottom: 20px
 
                 &-link
                     display: flex
@@ -972,6 +1150,9 @@ footer
                     gap: 16px
 
                     a
+                        display: flex
+                        align-items: center
+                        gap: 10px
                         font-family: $Gilroy-Medium
                         font-size: 15px
                         line-height: 160%
@@ -979,9 +1160,6 @@ footer
                         text-decoration: none
                         opacity: 0.8
                         transition: .5s
-                        display: flex
-                        align-items: center
-                        gap: 10px
 
                         svg path
                             transition: .5s
@@ -1002,13 +1180,11 @@ footer
 
             p
                 font-family: $DM-Sans-Regular
-                font-style: normal
                 font-weight: 400
                 font-size: 15px
                 line-height: 20px
                 letter-spacing: -0.204545px
                 color: #1E2833
-                mix-blend-mode: normal
                 opacity: 0.5
 
             &-desc
@@ -1020,17 +1196,21 @@ footer
                     font-size: 15px
                     line-height: 160%
                     color: #1E1E1E
-                    opacity: 0.8
                     text-decoration: none
+                    opacity: 0.8
                     transition: .5s
 
                     &:hover
                         color: #E58411
 
-.scroll-top 
+// ==========================================
+// SCROLL TO TOP
+// ==========================================
+.scroll-top
     position: fixed
     bottom: 40px
     right: 40px
+    z-index: 999
     width: 50px
     height: 50px
     background: #E58411
@@ -1040,15 +1220,13 @@ footer
     opacity: 0
     visibility: hidden
     transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease
-    z-index: 999
 
-    &.visible 
+    &.visible
         opacity: 1
         visibility: visible
 
-        // Кольца появляются только когда кнопка видна
         &::before,
-        &::after 
+        &::after
             content: ''
             position: absolute
             top: 50%
@@ -1060,61 +1238,53 @@ footer
             transform: translate(-50%, -50%) scale(1)
             animation: ring 2s ease-out infinite
             pointer-events: none
-        
 
-        &::after 
+        &::after
             animation-delay: 1s
-        
-    
 
-    &:hover 
+    &:hover
         transform: translateY(-2px) scale(1.05)
         background: #b4690c
 
         &::before,
-        &::after 
+        &::after
             border-color: #b4690c
-        
-    
 
-    svg 
-        width: 24px
-        height: 24px
-        display: block
-        margin: 0 auto
+    svg
         position: relative
         z-index: 1
-    
+        display: block
+        width: 24px
+        height: 24px
+        margin: 0 auto
 
-
-// Анимация колец
-@keyframes ring 
-    0% 
+@keyframes ring
+    0%
         transform: translate(-50%, -50%) scale(1)
         opacity: 0.8
-    
-    100% 
+    100%
         transform: translate(-50%, -50%) scale(2.5)
         opacity: 0
-    
 
-// ===== ABOUT PAGE =====
+// ==========================================
+// ABOUT PAGE
+// ==========================================
 .page-hero
     padding: 180px 0 80px
-    background: linear-gradient(135deg, #0D1B39 0%, #1a2d5a 100%)
     text-align: center
+    background: linear-gradient(135deg, #0D1B39 0%, #1a2d5a 100%)
 
     h1
+        margin: 0 0 16px
         font-family: $Gilroy-Bold
         font-size: 64px
         color: #FFFFFF
-        margin: 0 0 16px
 
     p
+        margin: 0
         font-family: $Gilroy-Regular
         font-size: 20px
         color: rgba(255,255,255,0.8)
-        margin: 0
 
 .about-story
     padding: 100px 0
@@ -1128,27 +1298,27 @@ footer
             flex: 1
 
             .about-tag
+                margin-bottom: 12px
                 font-family: $Gilroy-Semibold
                 font-size: 18px
                 letter-spacing: 0.175em
                 text-transform: uppercase
                 color: #E58411
-                margin-bottom: 12px
 
             h2
+                margin-bottom: 20px
                 font-family: $Gilroy-Bold
                 font-size: 42px
                 line-height: 1.2
                 color: #1E1E1E
-                margin-bottom: 20px
 
             p
+                margin-bottom: 16px
                 font-family: $Gilroy-Regular
                 font-size: 18px
                 line-height: 185%
                 color: #1E1E1E
                 opacity: 0.8
-                margin-bottom: 16px
 
         .about-image
             flex: 1
@@ -1165,10 +1335,10 @@ footer
 
     .stat-item
         .stat-number
+            display: block
             font-family: $Gilroy-Bold
             font-size: 36px
             color: #E58411
-            display: block
 
         .stat-label
             font-family: $Gilroy-Regular
@@ -1191,10 +1361,10 @@ footer
     gap: 30px
 
     .value-card
-        background: #FFFFFF
         padding: 40px 30px
-        border-radius: 20px
         text-align: center
+        background: #FFFFFF
+        border-radius: 20px
         transition: transform 0.3s ease, box-shadow 0.3s ease
 
         &:hover
@@ -1205,18 +1375,18 @@ footer
             margin-bottom: 20px
 
         h3
+            margin-bottom: 12px
             font-family: $Gilroy-Bold
             font-size: 20px
             color: #1E1E1E
-            margin-bottom: 12px
 
         p
+            margin: 0
             font-family: $Gilroy-Regular
             font-size: 16px
             line-height: 185%
             color: #1E1E1E
             opacity: 0.8
-            margin: 0
 
 .about-team
     padding: 100px 0
@@ -1239,23 +1409,25 @@ footer
             width: 100%
             max-width: 200px
             height: 200px
-            border-radius: 50%
-            object-fit: cover
             margin-bottom: 16px
+            object-fit: cover
+            border-radius: 50%
 
         h4
+            margin-bottom: 4px
             font-family: $Gilroy-Bold
             font-size: 18px
             color: #1E1E1E
-            margin-bottom: 4px
 
         p
+            margin: 0
             font-family: $Gilroy-Regular
             font-size: 14px
             color: #666
-            margin: 0
 
-// ===== CONTACT PAGE =====
+// ==========================================
+// CONTACT PAGE
+// ==========================================
 .contact-section
     padding: 100px 0
 
@@ -1267,26 +1439,26 @@ footer
         flex: 1
 
         .contact-tag
+            margin-bottom: 12px
             font-family: $Gilroy-Semibold
             font-size: 18px
             letter-spacing: 0.175em
             text-transform: uppercase
             color: #E58411
-            margin-bottom: 12px
 
         h2
+            margin-bottom: 20px
             font-family: $Gilroy-Bold
             font-size: 42px
             color: #1E1E1E
-            margin-bottom: 20px
 
         > p
+            margin-bottom: 40px
             font-family: $Gilroy-Regular
             font-size: 18px
             line-height: 185%
             color: #1E1E1E
             opacity: 0.8
-            margin-bottom: 40px
 
 .contact-details
     display: flex
@@ -1300,31 +1472,31 @@ footer
 
         .contact-icon
             flex-shrink: 0
+            display: flex
+            align-items: center
+            justify-content: center
             width: 44px
             height: 44px
             background: rgba(229, 132, 17, 0.1)
             border-radius: 12px
-            display: flex
-            align-items: center
-            justify-content: center
 
         div
             h4
+                margin: 0 0 4px
                 font-family: $Gilroy-Semibold
                 font-size: 16px
                 color: #1E1E1E
-                margin: 0 0 4px
 
             p
+                margin: 0
                 font-family: $Gilroy-Regular
                 font-size: 14px
                 color: #666
-                margin: 0
 
 .contact-form
     flex: 1
-    background: #FFFFFF
     padding: 50px
+    background: #FFFFFF
     border-radius: 20px
     box-shadow: 0 5px 30px rgba(0,0,0,0.05)
 
@@ -1332,22 +1504,23 @@ footer
         margin-bottom: 24px
 
         label
+            display: block
+            margin-bottom: 8px
             font-family: $Gilroy-Medium
             font-size: 14px
             color: #1E1E1E
-            display: block
-            margin-bottom: 8px
 
-        input, textarea
+        input,
+        textarea
             width: 100%
             padding: 14px 18px
-            border: 1px solid #E5E5E5
-            border-radius: 12px
+            box-sizing: border-box
             font-family: $Gilroy-Regular
             font-size: 16px
             color: #1E1E1E
+            border: 1px solid #E5E5E5
+            border-radius: 12px
             transition: border-color 0.3s ease
-            box-sizing: border-box
 
             &:focus
                 outline: none
@@ -1362,12 +1535,12 @@ footer
 .btn-submit
     width: 100%
     padding: 16px
-    background: #E58411
-    border: none
-    border-radius: 12px
     font-family: $Gilroy-Semibold
     font-size: 18px
     color: #FFFFFF
+    background: #E58411
+    border: none
+    border-radius: 12px
     cursor: pointer
     transition: background 0.3s ease
 
@@ -1377,7 +1550,9 @@ footer
 .contact-map
     padding-bottom: 100px
 
-// ===== SHOP PAGE =====
+// ==========================================
+// SHOP PAGE
+// ==========================================
 .shop-section
     padding: 80px 0 120px
 
@@ -1385,41 +1560,40 @@ footer
     display: flex
     gap: 40px
 
-// Filters Sidebar
 .shop-filters
     flex: 0 0 280px
-    background: #F7F7F7
-    padding: 30px
-    border-radius: 20px
     height: fit-content
+    padding: 30px
+    background: #F7F7F7
+    border-radius: 20px
 
     h3
+        margin: 0 0 24px
+        padding-bottom: 16px
         font-family: $Gilroy-Bold
         font-size: 24px
         color: #1E1E1E
-        margin: 0 0 24px
-        padding-bottom: 16px
         border-bottom: 1px solid #E5E5E5
 
 .filter-group
     margin-bottom: 30px
 
     h4
+        margin: 0 0 12px
         font-family: $Gilroy-Semibold
         font-size: 16px
         color: #1E1E1E
-        margin: 0 0 12px
 
     label
         display: flex
         align-items: center
         gap: 10px
+        padding: 6px 0
         font-family: $Gilroy-Regular
         font-size: 14px
         color: #1E1E1E
         opacity: 0.8
         cursor: pointer
-        padding: 6px 0
 
         input[type="checkbox"]
             width: 16px
@@ -1434,22 +1608,22 @@ footer
     .price-values
         display: flex
         justify-content: space-between
+        margin-top: 8px
         font-family: $Gilroy-Regular
         font-size: 14px
         color: #666
-        margin-top: 8px
 
 .color-options
     display: flex
-    gap: 12px
     flex-wrap: wrap
+    gap: 12px
 
     .color-dot
         width: 30px
         height: 30px
+        border: 2px solid transparent
         border-radius: 50%
         cursor: pointer
-        border: 2px solid transparent
         transition: border-color 0.3s ease
 
         &:hover
@@ -1458,19 +1632,18 @@ footer
 .btn-filter
     width: 100%
     padding: 14px
-    background: #E58411
-    border: none
-    border-radius: 12px
     font-family: $Gilroy-Semibold
     font-size: 16px
     color: #FFFFFF
+    background: #E58411
+    border: none
+    border-radius: 12px
     cursor: pointer
     transition: background 0.3s ease
 
     &:hover
         background: #b4690c
 
-// Products Grid
 .shop-products
     flex: 1
 
@@ -1481,10 +1654,10 @@ footer
     margin-bottom: 30px
 
     .shop-count
+        margin: 0
         font-family: $Gilroy-Regular
         font-size: 14px
         color: #666
-        margin: 0
 
     .shop-sort
         display: flex
@@ -1498,12 +1671,12 @@ footer
 
         select
             padding: 8px 16px
-            border: 1px solid #E5E5E5
-            border-radius: 8px
             font-family: $Gilroy-Regular
             font-size: 14px
             color: #1E1E1E
             background: #FFFFFF
+            border: 1px solid #E5E5E5
+            border-radius: 8px
             cursor: pointer
 
             &:focus
@@ -1516,9 +1689,9 @@ footer
     gap: 30px
 
 .product-card
+    overflow: hidden
     background: #FAFAFA
     border-radius: 20px
-    overflow: hidden
     transition: transform 0.3s ease, box-shadow 0.3s ease
 
     &:hover
@@ -1539,11 +1712,11 @@ footer
             position: absolute
             top: 16px
             left: 16px
-            background: #E58411
-            color: #FFFFFF
+            padding: 4px 12px
             font-family: $Gilroy-Semibold
             font-size: 12px
-            padding: 4px 12px
+            color: #FFFFFF
+            background: #E58411
             border-radius: 20px
 
     .product-info
@@ -1551,10 +1724,10 @@ footer
         background: #FFFFFF
 
         h4
+            margin: 0 0 8px
             font-family: $Gilroy-Semibold
             font-size: 18px
             color: #1E1E1E
-            margin: 0 0 8px
 
         .product-stars
             display: flex
@@ -1576,18 +1749,17 @@ footer
                 color: #1E1E1E
 
             .plus-btn
-                width: 40px
-                height: 40px
-                padding: 0
                 display: flex
                 align-items: center
                 justify-content: center
+                width: 40px
+                height: 40px
+                padding: 0
 
                 svg
                     width: 16px
                     height: 16px
 
-// Pagination
 .shop-pagination
     display: flex
     justify-content: center
@@ -1597,29 +1769,31 @@ footer
     .page-btn
         width: 44px
         height: 44px
-        border: 1px solid #E5E5E5
-        border-radius: 12px
-        background: #FFFFFF
         font-family: $Gilroy-Medium
         font-size: 16px
         color: #1E1E1E
+        background: #FFFFFF
+        border: 1px solid #E5E5E5
+        border-radius: 12px
         cursor: pointer
         transition: all 0.3s ease
 
         &:hover
-            border-color: #E58411
             color: #E58411
+            border-color: #E58411
 
         &.active
-            background: #E58411
             color: #FFFFFF
+            background: #E58411
             border-color: #E58411
 
         &.next
             width: auto
             padding: 0 20px
 
-// ===== PRODUCT PAGE =====
+// ==========================================
+// PRODUCT PAGE
+// ==========================================
 .product-breadcrumbs
     padding: 140px 0 20px
     font-family: $Gilroy-Regular
@@ -1648,11 +1822,11 @@ footer
     flex: 1
 
     .product-main-image
+        padding: 40px
+        margin-bottom: 20px
+        text-align: center
         background: #FAFAFA
         border-radius: 20px
-        padding: 40px
-        text-align: center
-        margin-bottom: 20px
 
         img
             max-width: 100%
@@ -1666,13 +1840,13 @@ footer
         img
             width: 80px
             height: 80px
+            padding: 10px
             object-fit: contain
-            border-radius: 12px
+            background: #FAFAFA
             border: 2px solid transparent
+            border-radius: 12px
             cursor: pointer
             transition: border-color 0.3s ease
-            background: #FAFAFA
-            padding: 10px
 
             &:hover,
             &.active
@@ -1682,16 +1856,16 @@ footer
     flex: 1
 
     .product-category
+        margin: 0 0 8px
         font-family: $Gilroy-Regular
         font-size: 14px
         color: #666
-        margin: 0 0 8px
 
     h1
+        margin: 0 0 16px
         font-family: $Gilroy-Bold
         font-size: 36px
         color: #1E1E1E
-        margin: 0 0 16px
 
     .product-rating
         display: flex
@@ -1730,20 +1904,20 @@ footer
             text-decoration: line-through
 
         .price-discount
+            padding: 4px 12px
             font-family: $Gilroy-Semibold
             font-size: 14px
             color: #E58411
             background: rgba(229, 132, 17, 0.1)
-            padding: 4px 12px
             border-radius: 20px
 
     .product-description
+        margin-bottom: 30px
         font-family: $Gilroy-Regular
         font-size: 16px
         line-height: 185%
         color: #1E1E1E
         opacity: 0.8
-        margin-bottom: 30px
 
 .product-options
     display: flex
@@ -1753,11 +1927,11 @@ footer
 
     .option-group
         label
+            display: block
+            margin-bottom: 10px
             font-family: $Gilroy-Semibold
             font-size: 14px
             color: #1E1E1E
-            display: block
-            margin-bottom: 10px
 
         .color-options
             display: flex
@@ -1766,9 +1940,9 @@ footer
             .color-dot
                 width: 32px
                 height: 32px
+                border: 2px solid transparent
                 border-radius: 50%
                 cursor: pointer
-                border: 2px solid transparent
                 transition: border-color 0.3s ease
 
                 &:hover,
@@ -1778,11 +1952,10 @@ footer
         .quantity-selector
             display: flex
             align-items: center
-            gap: 0
+            width: fit-content
             border: 1px solid #E5E5E5
             border-radius: 12px
             overflow: hidden
-            width: fit-content
 
             .qty-btn
                 width: 44px
@@ -1800,10 +1973,10 @@ footer
                 width: 60px
                 height: 44px
                 text-align: center
-                border: none
                 font-family: $Gilroy-Medium
                 font-size: 16px
                 color: #1E1E1E
+                border: none
 
                 &:focus
                     outline: none
@@ -1820,12 +1993,12 @@ footer
         justify-content: center
         gap: 12px
         padding: 16px 32px
-        background: #E58411
-        border: none
-        border-radius: 12px
         font-family: $Gilroy-Semibold
         font-size: 16px
         color: #FFFFFF
+        background: #E58411
+        border: none
+        border-radius: 12px
         cursor: pointer
         transition: background 0.3s ease
 
@@ -1833,30 +2006,30 @@ footer
             background: #b4690c
 
     .btn-wishlist
-        width: 56px
-        height: 56px
-        border: 1px solid #E5E5E5
-        border-radius: 12px
-        background: #FFFFFF
-        cursor: pointer
         display: flex
         align-items: center
         justify-content: center
+        width: 56px
+        height: 56px
+        background: #FFFFFF
+        border: 1px solid #E5E5E5
+        border-radius: 12px
+        cursor: pointer
         transition: all 0.3s ease
 
         &:hover
-            border-color: #E58411
             background: #FFF5ED
+            border-color: #E58411
 
 .product-meta
-    border-top: 1px solid #E5E5E5
     padding-top: 24px
+    border-top: 1px solid #E5E5E5
 
     p
+        margin: 0 0 8px
         font-family: $Gilroy-Regular
         font-size: 14px
         color: #666
-        margin: 0 0 8px
 
         &:last-child
             margin: 0
@@ -1872,14 +2045,657 @@ footer
     background: #F7F7F7
 
     h2
+        margin-bottom: 40px
         font-family: $Gilroy-Bold
         font-size: 32px
         color: #1E1E1E
         text-align: center
-        margin-bottom: 40px
 
     .related-grid
         display: grid
         grid-template-columns: repeat(4, 1fr)
         gap: 30px
 
+// ==========================================
+// АДАПТИВ
+// ==========================================
+
+// ==========================================
+// 1200px
+// ==========================================
+@media (max-width: 1200px)
+    h1
+        font-size: 72px
+
+    .container
+        padding: 0 60px
+
+    .choose
+        .container
+            flex-direction: column
+            gap: 30px
+        h2
+            display: none
+        .choose-title-adapt
+            display: block
+
+    .provide-info
+        padding-right: 60px
+        h2
+            font-size: 32px
+
+    .materials-info
+        padding: 30px 0 0 60px
+        h2
+            font-size: 32px
+
+    .testimonials
+        .testimonial-card-info
+            width: 100%
+            margin: 0 18px 18px
+            padding: 20px 0 0
+            background-image: url(../image/review/back-review.svg)
+            background-repeat: no-repeat
+            background-position: bottom
+            background-size: cover
+            border-radius: 18px
+
+        .testimonial-slide
+            flex: 0 0 calc(50% - 15px)
+
+        .testimonials-btn
+            width: 44px
+            height: 44px
+            &.prev
+                left: -5px
+            &.next
+                right: -5px
+
+    .slider
+        padding: 0
+
+        .slider-btn
+            &.prev
+                left: 10px
+            &.next
+                right: 10px
+
+    .values-grid,
+    .team-grid,
+    .related-grid
+        grid-template-columns: repeat(2, 1fr)
+
+    .about-story .about-grid
+        flex-direction: column
+
+    .contact-grid
+        flex-direction: column
+
+    .shop-layout
+        flex-direction: column
+
+    .shop-filters
+        flex: 1
+
+    .products-grid
+        grid-template-columns: repeat(2, 1fr)
+
+    .product-detail-grid
+        flex-direction: column
+
+@media (max-width: 1024px)
+    .provide-desc, .materials
+        gap: 20px
+
+        .provide-img, .materials-img
+            img
+                width: 100%
+        
+        .provide-info
+            padding-top: 50px
+        
+        .materials-info
+            padding-top: 0
+
+    footer 
+        .container-footer-info   
+            gap: 50px
+   
+
+        
+
+// ==========================================
+// 992px
+// ==========================================
+@media (max-width: 992px)
+    .burger-menu
+        display: flex
+
+    .nav
+        position: fixed
+        top: 0
+        right: -100%
+        width: 70%
+        max-width: 400px
+        height: 100vh
+        background: #1E1E1E
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        gap: 30px
+        padding: 0 30px 30px
+        transition: right 0.4s ease
+        z-index: 1000
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2)
+
+        &.open
+            right: 0
+
+        a
+            color: #FFFFFF !important
+            font-size: 20px
+
+            svg path
+                fill: #FFFFFF !important
+
+        .dropdown
+            // Делаем дропдаун всегда открытым в бургер-меню
+            .dropdown-trigger
+                color: #FFFFFF !important
+                cursor: default  // Убираем курсор pointer
+                pointer-events: none  // Отключаем клики на триггер
+                justify-content: center
+
+                svg path
+                    fill: #FFFFFF !important
+
+            .dropdown-menu
+                position: static  // Не позиционируем абсолютно
+                background: transparent
+                box-shadow: none
+                opacity: 1 !important  // Всегда видимый
+                visibility: visible !important  // Всегда видимый
+                transform: none !important
+                padding: 0
+                transition: none
+                width: 100%
+
+                li a
+                    color: rgba(255, 255, 255, 0.7) !important
+                    padding: 6px 0
+                    font-size: 16px
+                    text-align: center  // Центрируем
+
+                    &:hover
+                        background: transparent
+                        color: #E58411 !important
+
+                    &::after
+                        display: none
+
+    // Корзина остается видимой всегда
+    .busket
+        display: flex !important
+
+    // Хедер при скролле
+    .header.scrolled
+        .burger-menu span
+            background: #1E1E1E
+
+        .burger-menu.active span
+            background: #1E1E1E
+
+        .header-actions .busket svg path
+            fill: #1E1E1E
+
+        .header-actions .busket:hover svg path
+            fill: #E58411
+
+    .slider
+        padding: 0 35px
+        max-width: 765px
+
+    .testimonials
+        .testimonial-slide
+            flex: 0 0 calc(50% - 15px)
+
+// ==========================================
+// 768px
+// ==========================================
+@media (max-width: 768px)
+    h1 
+        font-size: 48px
+
+    .panto_desc p 
+        font-family: "Gilroy-Regular", sans-serif
+        font-size: 18px
+    
+    .container
+        padding: 0 30px
+
+    .choose-cards 
+        flex-wrap: wrap
+        justify-content: space-between
+        .choose-card 
+            p 
+                width: 100%
+
+    .slider
+        padding: 0 30px
+        max-width: 500px
+
+        .slider-btn
+            width: 32px
+            height: 32px
+
+            &.prev
+                left: 5px
+            &.next
+                right: 5px
+
+    .provide-desc
+        gap: 0px
+        flex-direction: column
+
+        .provide-img
+            padding: 0 30px 0 0
+
+        .provide-info
+            padding-right: 30px
+            padding-top: 0
+            padding-left: 30px
+            max-width: 100%
+
+    .materials
+        flex-direction: column-reverse
+        gap: 0
+        
+        .materials-info 
+            padding: 0 0 0 30px
+            max-width: 100%
+
+    .values-grid,
+    .team-grid,
+    .related-grid,
+    .products-grid
+        grid-template-columns: 1fr
+
+    .about-stats
+        flex-direction: column
+        gap: 20px
+
+    .page-hero
+        padding: 140px 0 60px
+        h1
+            font-size: 40px
+
+    .contact-form
+        padding: 30px 20px
+
+    .product-images .product-main-image img
+        height: 250px
+
+    .product-info-detail h1
+        font-size: 28px
+
+    .product-actions
+        flex-direction: column
+        .btn-add-to-cart
+            width: 100%
+        .btn-wishlist
+            width: 100%
+            height: 48px
+
+    .shop-header
+        flex-direction: column
+        gap: 12px
+        align-items: flex-start
+
+    .shop-filters
+        padding: 20px
+
+    .testimonials
+        .testimonial-slide
+            flex: 0 0 100%
+        .testimonials-container
+            margin: 0 35px
+        .testimonials-btn
+            width: 36px
+            height: 36px
+            &.prev
+                left: 5px
+            &.next
+                right: 5px
+        .testimonial-card
+            height: 420px
+
+    .container-footer-info
+        flex-wrap: wrap
+
+
+    footer
+        .container-footer
+            padding: 0 30px
+            
+            .container-footer-info-description 
+                width: 100%
+                margin: 0
+
+
+// ==========================================
+// 576px
+// ==========================================
+@media (max-width: 576px)
+    .container
+        padding: 0 20px
+
+    h1
+        font-size: 40px
+
+    h2
+        font-size: 28px
+
+    .nav
+        width: 85%
+
+        a
+            font-size: 18px
+
+    .header-actions
+        gap: 15px
+
+    .burger-menu
+        width: 24px
+        height: 17px
+
+        span
+            height: 2px
+
+        &.active span:nth-child(1)
+            transform: translateY(7.5px) rotate(45deg)
+
+        &.active span:nth-child(3)
+            transform: translateY(-7.5px) rotate(-45deg)
+
+    .busket svg
+        width: 22px
+        height: 25px
+
+    .slider
+        padding: 0 30px
+        max-width: 400px
+
+        .slider-btn
+            width: 32px
+            height: 32px
+
+            &.prev
+                left: 5px
+            &.next
+                right: 5px
+
+    .testimonials
+        .testimonials-container
+            margin: 0 25px
+        .testimonials-btn
+            width: 32px
+            height: 32px
+        .testimonial-card
+            height: 380px
+            .testimonial-text
+                padding: 0 20px
+                font-size: 13px
+            .testimonial-card-info
+                margin: 0 12px 12px
+                &__img img
+                    width: 50px
+                    height: 50px
+
+// ==========================================
+// 400px
+// ==========================================
+@media (max-width: 425px)
+    .container
+        padding: 0 15px
+
+    .panto
+        height: 800px
+        h1
+            font-size: 32px
+            padding: 20px 0 0 
+        .panto_desc p
+            font-size: 16px
+
+    .header
+        padding: 20px 0
+        .container
+            flex-wrap: wrap
+            gap: 10px
+        .logo a
+            font-size: 22px
+        .nav
+            gap: 20px
+            a
+                font-size: 14px
+
+    .choose, .products, .provide, .materials, .testimonials
+        padding: 40px 0
+
+    .provide-info 
+        h2
+            font-size: 28px
+        .provide-info__exper 
+            font-size: 16px
+        p
+            font-size: 16px
+
+    .materials-info 
+        h2
+            font-size: 28px
+        .materials-info__material
+            font-size: 16px
+        p
+            font-size: 16px
+
+    .testimonials .testimonials-info__material
+
+    .choose-card 
+        p 
+            width: 100%
+
+    .provide-desc 
+        .provide-img 
+            padding: 0 15px 0 0
+
+        .provide-info 
+            padding-right: 15px
+            padding-left: 15px
+
+    .materials 
+        .materials-info 
+            padding: 0 15px
+
+
+    .slider  
+        max-width: 375px
+        padding: 0 15px
+        .slide 
+            padding: 0
+    
+    .tabs
+        margin-bottom: 30px
+
+    .view_all a 
+        padding: 8px 30px
+        font-size: 16px
+
+    .testimonials
+        h2 
+            margin-bottom: 20px
+        .testimonials-info__material
+            font-size: 16px
+            margin: 0
+        .testimonials-info-link
+            margin-top: 30px
+            margin-bottom: 0
+            a
+                padding: 8px 30px
+                font-size: 16px
+        .testimonials-slider 
+            padding: 0
+
+            .testimonials-container 
+                margin: 0
+
+        .testimonial-card
+            height: 340px
+            .testimonial-text
+                font-size: 12px
+                padding: 0 15px
+            .testimonial-card-info
+                background-position: top
+                &__img img
+                    width: 40px
+                    height: 40px
+                &-name h4
+                    font-size: 16px
+
+        .testimonials-btn.next 
+            right: 0
+
+        .testimonials-btn.prev 
+            left: 0
+    
+
+    footer 
+        .container-footer 
+            padding: 0 15px
+
+            &-info 
+                padding: 40px 0
+                gap: 30px
+
+            &-link 
+                justify-content: space-between
+                flex-direction: column
+                gap: 20px
+                padding-bottom: 40px
+
+@media (max-width: 375px) 
+    .slider 
+        max-width: 320px
+        padding: 0 15px
+
+@media (max-width: 320px) 
+    .slider 
+        max-width: 310px
+        padding: 0 15px
+
+
+// ==========================================
+// СТРАНИЦА ОТЗЫВОВ (reviews.html)
+// ==========================================
+
+.reviews-hero
+    background: linear-gradient(135deg, #0D1B39 0%, #1a2d5a 100%)
+    padding: 180px 0 80px
+    text-align: center
+
+    h1
+        font-family: $Gilroy-Bold
+        font-size: 64px
+        color: #FFFFFF
+        margin: 0 0 16px
+
+    p
+        font-family: $Gilroy-Regular
+        font-size: 20px
+        color: rgba(255, 255, 255, 0.8)
+        margin: 0
+
+.reviews-page
+    padding: 80px 0
+
+    .reviews-grid
+        display: grid
+        grid-template-columns: repeat(3, 1fr)
+        gap: 30px
+
+    .review-item
+        .testimonial-card
+            height: auto
+            min-height: 350px
+            padding: 30px 20px 25px
+            border-radius: 20px
+            background: rgba(255, 255, 255, 0.75)
+            backdrop-filter: blur(12px)
+            border: 1px solid rgba(255, 255, 255, 0.3)
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06)
+            display: flex
+            flex-direction: column
+            align-items: center
+            text-align: center
+
+            .card-content
+                width: 100%
+
+            .testimonial-text.full-text
+                -webkit-line-clamp: unset
+                max-height: none
+                overflow: visible
+                display: block
+
+            .testimonial-card-info__img img
+                width: 60px
+                height: 60px
+                border-radius: 50%
+                object-fit: cover
+                border: 3px solid rgba(255, 255, 255, 0.9)
+
+            .testimonial-card-info-name
+                margin-bottom: 16px
+                h4
+                    font-family: $Gilroy-Bold
+                    font-size: 18px
+                    color: #1E1E1E
+                    margin: 0
+                p
+                    font-family: $Gilroy-Regular
+                    font-size: 13px
+                    color: #1E1E1E
+                    opacity: 0.7
+                    margin: 0
+
+            .testimonial-text
+                font-family: $Gilroy-Regular
+                font-size: 14px
+                line-height: 1.6
+                color: #1E1E1E
+                opacity: 0.8
+                margin: 0 0 18px
+                max-width: 280px
+                margin-left: auto
+                margin-right: auto
+
+            .review-stars
+                display: flex
+                justify-content: center
+                gap: 6px
+
+                svg
+                    width: 16px
+                    height: 15px
+
+// Адаптив для страницы отзывов
+@media (max-width: 1200px)
+    .reviews-page .reviews-grid
+        grid-template-columns: repeat(2, 1fr)
+
+@media (max-width: 768px)
+    .reviews-page .reviews-grid
+        grid-template-columns: 1fr
+
+    .reviews-hero
+        padding: 140px 0 60px
+        h1
+            font-size: 40px
