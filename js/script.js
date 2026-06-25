@@ -253,7 +253,7 @@ class UniversalSlider {
 document.addEventListener('DOMContentLoaded', function () {
     // Находим ВСЕ слайдеры на странице
     const productSliders = document.querySelectorAll('.slider');
-    
+
     if (productSliders.length > 0) {
         productSliders.forEach((slider, index) => {
             new UniversalSlider({
@@ -415,4 +415,37 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const colorButtons = document.querySelectorAll('.color-btn');
+
+    colorButtons.forEach(btn => {
+        btn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            
+            // Находим родительский тултип
+            const tooltip = this.closest('.tooltip');
+            if (!tooltip) return;
+
+            // ВЫВОДИМ ЛОГИ В КОНСОЛЬ (нажмите F12, чтобы увидеть)
+            console.log('=== КЛИК ===');
+            console.log('На какую кнопку нажали:', this.className);
+            console.log('В каком тултипе (по индексу):', Array.from(tooltip.parentElement.children).indexOf(tooltip));
+            console.log('Сколько всего кнопок в этом тултипе:', tooltip.querySelectorAll('.color-btn').length);
+
+            // Убираем active у всех в этом тултипе
+            tooltip.querySelectorAll('.color-btn').forEach(b => {
+                b.classList.remove('active');
+            });
+
+            // Ставим active на нажатую
+            this.classList.add('active');
+        });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('copyright').textContent = new Date().getFullYear();
 });
