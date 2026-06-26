@@ -1378,53 +1378,70 @@
                 <div class="provide-img">
                     <img src="image/provide.png" alt="provide">
                 </div>
-                <div class="provide-info">
-                    <p class="provide-info__exper">experiences</p>
-                    <h2>we provide you the best experience</h2>
-                    <p>You don’t have to worry about the result because all of these interiors are made by people who
-                        are professionals in their fields with an elegant and lucurious style and with premium quality
-                        materials</p>
+                <div class="container">
+                    <div class="provide-info">
+                        <p class="provide-info__exper">experiences</p>
+                        <h2>we provide you the best experience</h2>
+                        <p>You don’t have to worry about the result because all of these interiors are made by people
+                            who
+                            are professionals in their fields with an elegant and lucurious style and with premium
+                            quality
+                            materials</p>
 
-                    <div class="card-text-full">
-                        <p>Our team of experienced designers and craftsmen work tirelessly to create interiors that
-                            blend functionality with aesthetic excellence. Every piece is carefully selected to ensure
-                            durability, comfort, and timeless elegance. We take pride in delivering spaces that inspire
-                            creativity and productivity, all while maintaining the highest standards of quality and
-                            craftsmanship.</p>
+                        <div class="card-text-full">
+                            <p>Our team of experienced designers and craftsmen work tirelessly to create interiors that
+                                blend functionality with aesthetic excellence. Every piece is carefully selected to
+                                ensure
+                                durability, comfort, and timeless elegance. We take pride in delivering spaces that
+                                inspire
+                                creativity and productivity, all while maintaining the highest standards of quality and
+                                craftsmanship.</p>
+                            <p>From the initial concept to the final installation, we ensure that every detail is
+                                meticulously planned and executed. Our commitment to excellence is reflected in the
+                                quality
+                                of materials we use and the precision of our workmanship. We believe that great design
+                                is
+                                not just about aesthetics, but about creating spaces that enhance the lives of those who
+                                inhabit them.</p>
+                        </div>
+                        <a href="#" class="read-more-btn">More Info <svg width="48" height="24" viewBox="0 0 48 24"
+                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M4.5 12.4002H42M36.6 17.8002C38.0324 15.1736 42 12.4002 42 12.4002C42 12.4002 37.5119 9.44867 36.6 7.00024"
+                                    stroke="#E58411" stroke-linecap="square" />
+                            </svg>
+                        </a>
                     </div>
-                    <a href="#" class="read-more-btn">More Info <svg width="48" height="24" viewBox="0 0 48 24"
-                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M4.5 12.4002H42M36.6 17.8002C38.0324 15.1736 42 12.4002 42 12.4002C42 12.4002 37.5119 9.44867 36.6 7.00024"
-                                stroke="#E58411" stroke-linecap="square" />
-                        </svg>
-                    </a>
                 </div>
+
             </div>
         </section>
         <section class="materials">
-            <div class="materials-info">
-                <p class="materials-info__material">Materials</p>
-                <h2>Very serious materials for making furniture</h2>
-                <p>Because panto was very serious about designing furniture for our environment, using a very expensive
-                    and famous capital but at a relatively low price</p>
-
-                <div class="card-text-full">
-                    <p>We source only the finest materials from renowned suppliers around the world. Our commitment to
-                        quality means every piece of furniture is built to last, combining durability with sophisticated
-                        design. Despite using premium resources, we maintain competitive pricing to make luxury
-                        accessible to everyone.</p>
+            <div class="materials-desc">
+                <div class="materials-img">
+                    <img src="image/materials.png" alt="materials">
                 </div>
-                <a href="#" class="read-more-btn">More Info <svg width="48" height="24" viewBox="0 0 48 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M4.5 12.4002H42M36.6 17.8002C38.0324 15.1736 42 12.4002 42 12.4002C42 12.4002 37.5119 9.44867 36.6 7.00024"
-                            stroke="#E58411" stroke-linecap="square" />
-                    </svg>
-                </a>
-            </div>
-            <div class="materials-img">
-                <img src="image/materials.png" alt="">
+                <div class="container">
+                    <div class="materials-info">
+                        <p class="materials-info__material">Materials</p>
+                        <h2>Very serious materials for making furniture</h2>
+                        <p>Because panto was very serious about designing furniture for our environment, using a very
+                            expensive and famous capital but at a relatively low price</p>
+
+                        <div class="card-text-full">
+                            <p>We source only the finest materials from renowned suppliers around the world. Our
+                                commitment to quality means every piece of furniture is built to last, combining
+                                durability with sophisticated design. Despite using premium resources, we maintain
+                                competitive pricing to make luxury accessible to everyone.</p>
+                        </div>
+                        <a href="#" class="read-more-btn">More Info <svg width="48" height="24" viewBox="0 0 48 24"
+                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M4.5 12.4002H42M36.6 17.8002C38.0324 15.1736 42 12.4002 42 12.4002C42 12.4002 37.5119 9.44867 36.6 7.00024"
+                                    stroke="#E58411" stroke-linecap="square" />
+                            </svg></a>
+                    </div>
+                </div>
             </div>
         </section>
         <section class="testimonials">
@@ -1672,8 +1689,70 @@
                                     stroke="#E58411" stroke-linecap="square"></path>
                             </svg>
                         </a>
-                    </div>
+                        <button class="review-btn" onclick="openReviewForm()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 5V19M5 12H19" stroke="white" stroke-width="2" stroke-linecap="square" />
+                            </svg>
+                            Leave a Review
+                        </button>
 
+                    </div>
+                    <div class="review-overlay" id="reviewOverlay">
+                        <div class="review-modal">
+                            <div class="review-modal-header">
+                                <h3>Write a Review</h3>
+                                <button class="review-close" onclick="closeReviewForm()">✕</button>
+                            </div>
+                            <form id="reviewForm" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label>Your Photo</label>
+                                    <div class="photo-upload">
+                                        <input type="file" id="photoInput" accept="image/*"
+                                            onchange="previewPhoto(event)">
+                                        <label for="photoInput" class="photo-label">
+                                            <div class="photo-placeholder" id="photoPlaceholder">
+                                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M12 5V19M5 12H19" stroke="#E58411" stroke-width="2"
+                                                        stroke-linecap="square" />
+                                                    <circle cx="12" cy="12" r="10" stroke="#E58411" stroke-width="2" />
+                                                </svg>
+                                                <span>Upload your photo</span>
+                                            </div>
+                                            <div class="photo-preview" id="photoPreview" style="display: none;">
+                                                <img id="previewImage" src="" alt="Your photo">
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Your Name</label>
+                                    <input type="text" id="reviewName" placeholder="Enter your name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Your Role</label>
+                                    <input type="text" id="reviewRole" placeholder="e.g. Designer, Student">
+                                </div>
+                                <div class="form-group">
+                                    <label>Rating</label>
+                                    <div class="stars">
+                                        <span onclick="setStar(1)">☆</span>
+                                        <span onclick="setStar(2)">☆</span>
+                                        <span onclick="setStar(3)">☆</span>
+                                        <span onclick="setStar(4)">☆</span>
+                                        <span onclick="setStar(5)">☆</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Your Review</label>
+                                    <textarea id="reviewText" rows="4"
+                                        placeholder="Share your experience..."></textarea>
+                                </div>
+                                <button type="submit" class="submit-review">Submit Review</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1717,6 +1796,8 @@
                                     d="M8.11163 3.29509H9.92331V0.139742C9.61075 0.0967442 8.53581 0 7.28393 0C4.67183 0 2.88248 1.643 2.88248 4.66274V7.44186H0V10.9693H2.88248V19.845H6.41654V10.9701H9.18243L9.6215 7.44269H6.41571V5.01251C6.41654 3.99297 6.69106 3.29509 8.11163 3.29509Z"
                                     fill="#1E2833" />
                             </svg>
+
+
                             Facebook</a>
                         <a href="#"><svg width="20" height="16" viewBox="0 0 20 16" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">

@@ -8,6 +8,9 @@
     margin: 0
     padding: 0
 
+*
+    box-sizing: border-box
+
 p
     margin: 0
     padding: 0
@@ -301,7 +304,7 @@ p
     background-image: url(../image/background.png)
     background-repeat: no-repeat
     background-position: bottom
-    background-size: contain
+    background-size: cover
 
     .container
         display: flex
@@ -349,19 +352,19 @@ h1
         z-index: 10
 
         &:nth-child(1)
-            top: 63% 
+            top: 60% 
             left: 20%
 
         &:nth-child(2)
-            top: 68% 
+            top: 66% 
             left: 7%
 
         &:nth-child(3)
-            top: 72% 
+            top: 69% 
             left: 55%
 
         &:nth-child(4)
-            top: 75% 
+            top: 73% 
             left: 95%
         
         background: rgba(255, 255, 255, 0.15)
@@ -882,17 +885,32 @@ h2
     padding: 120px 0 60px 0
 
     &-desc
-        display: flex
-        gap: 80px
+        overflow: hidden  // Вместо display: flex
+        // Убираем gap: 80px
+
+        .provide-img
+            float: left
+            //width: 45%  // Ширина картинки
+            margin-right: 80px
+
+            img
+               // width: 84%
+                display: block
+                border-radius: 20px
 
     &-info
-        max-width: 556px
+        // Убираем max-width: 556px
+        // Убираем padding-top: 83px
         padding-top: 83px
+        padding-right: 90px
+        // padding-left: 80px
+        // padding-right: 141px
+        // НЕТ overflow: hidden!
 
         .card-text-full
             max-height: 0
             margin: 0
-            overflow: hidden
+            overflow: hidden  // Для скрытия
             opacity: 0
             transition: max-height 0.5s ease, opacity 0.5s ease, margin 0.5s ease
 
@@ -902,11 +920,13 @@ h2
                 font-size: 18px
                 line-height: 185%
                 color: #1E1E1E
+                margin-bottom: 20px
 
             &.open
                 max-height: 500px
-                margin: 0 0 24px 0
+                margin: 24px 0
                 opacity: 1
+                overflow: visible  // КЛЮЧЕВОЕ! Чтобы текст обтекал
 
         .provide-info__exper
             margin-bottom: 20px
@@ -934,7 +954,7 @@ h2
             opacity: 0.8
 
         a
-            display: flex
+            display: inline-flex  // Меняем на inline-flex
             align-items: center
             gap: 11px
             font-family: $Gilroy-Medium
@@ -960,83 +980,102 @@ h2
 // MATERIALS
 // ==========================================
 .materials
-    display: flex
-    justify-content: flex-end
-    gap: 94px
     padding: 60px 0
 
-    &-info
-        max-width: 556px
-        padding: 124px 0 0 80px
+    .materials-desc
+        overflow: hidden  // Очистка float
+        position: relative
 
-        .card-text-full
-            max-height: 0
-            margin: 0
-            overflow: hidden
-            opacity: 0
-            transition: max-height 0.5s ease, opacity 0.5s ease, margin 0.5s ease
+        .materials-img
+            float: right  // Картинка справа
+            width: 45%
+            margin-left: 106px
+            //margin-right: -80px  // Прижимаем к правому краю
 
-            p
-                margin: 0
-                font-family: $Gilroy-Regular
-                font-size: 18px
-                line-height: 185%
-                color: #1E1E1E
+            img
+                width: 100%
+                display: block
+                border-radius: 20px
 
-            &.open
-                max-height: 500px
-                margin: 0 0 24px 0
-                opacity: 1
+        .container
+            max-width: 1440px
+            margin: 0 auto
+            padding: 0 80px
 
-        .materials-info__material
-            margin-bottom: 20px
-            font-family: $Gilroy-Semibold
-            font-size: 18px
-            line-height: 21px
-            letter-spacing: 0.175em
-            text-transform: uppercase
-            color: #E58411
+            .materials-info
+                padding-top: 124px
+                // НЕТ max-width: 556px!
+                // НЕТ overflow: hidden!
 
-        h2
-            margin-bottom: 20px
-            font-family: $Gilroy-Bold
-            font-size: 42px
-            line-height: 49px
-            text-transform: capitalize
-            color: #1E1E1E
+                .card-text-full
+                    max-height: 0
+                    margin: 0
+                    overflow: hidden
+                    opacity: 0
+                    transition: max-height 0.5s ease, opacity 0.5s ease, margin 0.5s ease
 
-        p
-            margin-bottom: 24px
-            font-family: $Gilroy-Regular
-            font-size: 18px
-            line-height: 185%
-            color: #1E1E1E
-            opacity: 0.8
+                    p
+                        margin: 0
+                        font-family: $Gilroy-Regular
+                        font-size: 18px
+                        line-height: 185%
+                        color: #1E1E1E
+                        margin-bottom: 20px
 
-        a
-            display: flex
-            align-items: center
-            gap: 11px
-            font-family: $Gilroy-Medium
-            font-size: 14px
-            line-height: 185%
-            color: #E58411
-            text-decoration: none
+                    &.open
+                        max-height: 500px
+                        margin: 24px 0
+                        opacity: 1
+                        overflow: visible  // КЛЮЧЕВОЕ!
 
-            svg
-                transition: transform 0.5s ease
+                .materials-info__material
+                    margin-bottom: 20px
+                    font-family: $Gilroy-Semibold
+                    font-size: 18px
+                    line-height: 21px
+                    letter-spacing: 0.175em
+                    text-transform: uppercase
+                    color: #E58411
 
-            &:hover
-                color: #b4690c
+                h2
+                    margin-bottom: 20px
+                    font-family: $Gilroy-Bold
+                    font-size: 42px
+                    line-height: 49px
+                    text-transform: capitalize
+                    color: #1E1E1E
+                    padding-right: 848px
 
-                svg
-                    transform: translateX(10px)
+                p
+                    margin-bottom: 24px
+                    font-family: $Gilroy-Regular
+                    font-size: 18px
+                    line-height: 185%
+                    color: #1E1E1E
+                    opacity: 0.8
 
-                svg path
-                    stroke: #b4690c
-                    transition: stroke 0.5s ease
+                a
+                    display: inline-flex
+                    align-items: center
+                    gap: 11px
+                    font-family: $Gilroy-Medium
+                    font-size: 14px
+                    line-height: 185%
+                    color: #E58411
+                    text-decoration: none
 
+                    svg
+                        transition: transform 0.5s ease
 
+                    &:hover
+                        color: #b4690c
+
+                        svg
+                            transform: translateX(10px)
+
+                        svg path
+                            stroke: #b4690c
+                            transition: stroke 0.5s ease
 // ==========================================
 // TESTIMONIALS
 // ==========================================
@@ -1098,7 +1137,6 @@ h2
             &__img
                 display: flex
                 justify-content: center
-                // padding-top: 8px
                 margin-bottom: 13px
 
                 img
@@ -1141,11 +1179,11 @@ h2
             color: #1E1E1E
             opacity: 0.8
             display: -webkit-box
-            -webkit-line-clamp: 2  // Ограничиваем 3 строками
+            -webkit-line-clamp: 2
             -webkit-box-orient: vertical
             overflow: hidden
             text-overflow: ellipsis
-            max-height: 4.8em  // 3 строки * 1.6 line-height
+            max-height: 4.8em
             line-height: 1.6
 
         .review-stars
@@ -1201,6 +1239,8 @@ h2
     .testimonials-info-link
         display: flex
         justify-content: center
+        gap: 20px
+        flex-wrap: wrap
         margin-top: 60px
         margin-bottom: 120px
 
@@ -1231,6 +1271,196 @@ h2
                 svg path
                     stroke: #b4690c
 
+        .review-btn
+            display: flex
+            align-items: center
+            gap: 11px
+            padding: 8px 30px
+            font-family: $Gilroy-Medium
+            font-size: 18px
+            line-height: 185%
+            color: #FFFFFF
+            background: #E58411
+            border: none
+            border-radius: 20px
+            cursor: pointer
+            transition: all 0.3s ease
+
+            svg
+                transition: transform 0.5s ease
+
+            &:hover
+                background: #b4690c
+
+    // ==========================================
+    // ФОРМА ОТЗЫВА
+    // ==========================================
+    .review-overlay
+        display: none
+        position: fixed
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        background: rgba(0, 0, 0, 0.5)
+        z-index: 2000
+        justify-content: center
+        align-items: center
+
+        &.active
+            display: flex
+
+    .review-modal
+        background: #FFFFFF
+        padding: 40px
+        border-radius: 24px
+        max-width: 500px
+        width: 90%
+        max-height: 90vh
+        overflow-y: auto
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3)
+        animation: slideUp 0.3s ease
+
+        .review-modal-header
+            display: flex
+            justify-content: space-between
+            align-items: center
+            margin-bottom: 24px
+
+            h3
+                margin: 0
+                font-family: $Gilroy-Bold
+                font-size: 24px
+                color: #1E1E1E
+
+            .review-close
+                background: none
+                border: none
+                font-size: 24px
+                cursor: pointer
+                color: #666
+                transition: color 0.3s ease
+
+                &:hover
+                    color: #E58411
+
+        .form-group
+            margin-bottom: 20px
+
+            label
+                display: block
+                margin-bottom: 8px
+                font-family: $Gilroy-Medium
+                font-size: 14px
+                color: #1E1E1E
+
+            input,
+            textarea
+                width: 100%
+                padding: 12px 16px
+                border: 1px solid #E5E5E5
+                border-radius: 12px
+                font-family: $Gilroy-Regular
+                font-size: 16px
+                color: #1E1E1E
+                box-sizing: border-box
+                transition: border-color 0.3s ease
+
+                &:focus
+                    outline: none
+                    border-color: #E58411
+
+                &::placeholder
+                    color: #B0B0B0
+
+            textarea
+                resize: vertical
+                min-height: 100px
+
+        .stars
+            display: flex
+            gap: 8px
+
+            span
+                font-size: 32px
+                cursor: pointer
+                color: #ddd
+                transition: color 0.3s ease
+
+                &.active
+                    color: #F6973F
+
+                &:hover
+                    color: #F6973F
+
+        .submit-review
+            width: 100%
+            padding: 14px
+            font-family: $Gilroy-Semibold
+            font-size: 16px
+            color: #FFFFFF
+            background: #E58411
+            border: none
+            border-radius: 12px
+            cursor: pointer
+            transition: background 0.3s ease
+
+            &:hover
+                background: #b4690c
+
+    @keyframes slideUp
+        from
+            opacity: 0
+            transform: translateY(30px)
+        to
+            opacity: 1
+            transform: translateY(0)
+
+// ==========================================
+// ФОТО В ФОРМЕ (вне .testimonials)
+// ==========================================
+.photo-upload
+    input[type="file"]
+        display: none
+
+    .photo-label
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 100%
+        min-height: 120px
+        border: 2px dashed #E5E5E5
+        border-radius: 12px
+        cursor: pointer
+        transition: all 0.3s ease
+        padding: 20px
+
+        &:hover
+            border-color: #E58411
+            background: rgba(229, 132, 17, 0.05)
+
+    .photo-placeholder
+        display: flex
+        flex-direction: column
+        align-items: center
+        gap: 10px
+        color: #666
+        
+        span
+            font-family: $Gilroy-Medium
+            font-size: 14px
+
+    .photo-preview
+        width: 80px
+        height: 80px
+        border-radius: 50%
+        overflow: hidden
+        border: 3px solid #E58411
+        
+        img
+            width: 100%
+            height: 100%
+            object-fit: cover
 // ==========================================
 // FOOTER
 // ==========================================
@@ -2208,44 +2438,110 @@ footer
     .panto-hotspots
         .hotspot
             &:nth-child(1)
-                top: 60% 
+                top: 58% 
                 left: 20%
 
             &:nth-child(2)
-                top: 65% 
+                top: 61% 
                 left: 7%
 
             &:nth-child(3)
-                top: 70% 
+                top: 67% 
                 left: 55%
 
             &:nth-child(4)
-                top: 73% 
+                top: 71% 
                 left: 95%
     
 
 
-@media (min-width: 1441px) and (max-width: 1919px)
+@media (min-width: 1781px) and (max-width: 1919px)
     .panto
         background-size: cover
 
     .panto-hotspots
         .hotspot
             &:nth-child(1)
-                top: 64% 
-                left: 18%
+                top: 48% 
+                left: 21%
 
             &:nth-child(2)
-                top: 64% 
-                left: 4%
+                top: 54% 
+                left: 7%
 
             &:nth-child(3)
-                top: 68% 
+                top: 59% 
                 left: 55%
 
             &:nth-child(4)
-                top: 76% 
-                left: 86%
+                top: 66% 
+                left: 95%
+
+@media (min-width: 1601px) and (max-width: 1780px)
+    .panto
+        background-size: cover
+
+    .panto-hotspots
+        .hotspot
+            &:nth-child(1)
+                top: 55% 
+                left: 21%
+
+            &:nth-child(2)
+                top: 61% 
+                left: 7%
+
+            &:nth-child(3)
+                top: 65% 
+                left: 55%
+
+            &:nth-child(4)
+                top: 72% 
+                left: 95%
+
+@media (min-width: 1501px) and (max-width: 1600px)
+    .panto
+        background-size: cover
+
+    .panto-hotspots
+        .hotspot
+            &:nth-child(1)
+                top: 58% 
+                left: 21%
+
+            &:nth-child(2)
+                top: 63% 
+                left: 7%
+
+            &:nth-child(3)
+                top: 65% 
+                left: 55%
+
+            &:nth-child(4)
+                top: 72% 
+                left: 95%
+
+@media (min-width: 1441px) and (max-width: 1500px)
+    .panto
+        background-size: cover
+
+    .panto-hotspots
+        .hotspot
+            &:nth-child(1)
+                top: 60% 
+                left: 21%
+
+            &:nth-child(2)
+                top: 65% 
+                left: 7%
+
+            &:nth-child(3)
+                top: 69% 
+                left: 55%
+
+            &:nth-child(4)
+                top: 74% 
+                left: 95%
 
 @media (min-width: 1201px) and (max-width: 1360px)
     .panto-hotspots
@@ -2296,14 +2592,29 @@ footer
             display: block
 
     .provide-info
-        padding-right: 60px
+        padding-right: 0
         h2
             font-size: 32px
 
+    .provide-desc 
+        .provide-img 
+            width: 40%
+
+
     .materials-info
-        padding: 30px 0 0 60px
+        padding: 30px 0 0 0
         h2
             font-size: 32px
+
+    .materials 
+        .materials-desc 
+            .container 
+                .materials-info 
+                    padding-top: 0
+
+                    h2
+                        padding-right: 0
+                        font-size: 32px
 
     .testimonials
         .testimonial-card-info
@@ -2471,9 +2782,16 @@ footer
         padding: 0 35px
         max-width: 765px
 
+    .provide-desc 
+        .provide-img 
+            margin-right: 0
+    
+
     .testimonials
         .testimonial-slide
             flex: 0 0 calc(50% - 15px)
+
+    
 
 // ==========================================
 // 768px
@@ -2517,9 +2835,9 @@ footer
             padding: 0 30px 0 0
 
         .provide-info
-            padding-right: 30px
+            padding-right: 0
             padding-top: 0
-            padding-left: 30px
+            padding-left: 0
             max-width: 100%
 
     .materials
@@ -2527,8 +2845,15 @@ footer
         gap: 0
         
         .materials-info 
-            padding: 0 0 0 30px
+            padding: 0 0 0 0
             max-width: 100%
+
+        .materials-desc 
+            .container 
+                max-width: 1440px
+                margin: 0 auto
+                padding: 0 30px
+
 
     .values-grid,
     .team-grid,
@@ -2596,6 +2921,34 @@ footer
             .container-footer-info-description 
                 width: 100%
                 margin: 0
+
+@media (max-width: 600px) 
+    .provide-desc 
+        .provide-img 
+            width: 100%
+
+    .provide-info 
+        h2
+            font-size: 28px
+            line-height: 28px     
+
+        .provide-info__exper 
+            font-size: 16px
+        p
+            font-size: 16px
+
+    .materials 
+        .materials-desc 
+            .materials-img 
+                width: 100%
+                margin-left: 0
+
+            .container 
+                .materials-info 
+                    h2 
+                        font-size: 28px
+                        line-height: 28px  
+
 
 
 // ==========================================
@@ -2667,6 +3020,12 @@ footer
                     width: 50px
                     height: 50px
 
+    .materials 
+        .materials-desc 
+            .container 
+                padding: 0px 20px
+    
+
 // ==========================================
 // 400px
 // ==========================================
@@ -2700,20 +3059,13 @@ footer
     .provide-info 
         h2
             font-size: 28px
+            line-height: 28px     
+
         .provide-info__exper 
             font-size: 16px
         p
             font-size: 16px
 
-    .materials-info 
-        h2
-            font-size: 28px
-        .materials-info__material
-            font-size: 16px
-        p
-            font-size: 16px
-
-    .testimonials .testimonials-info__material
 
     .choose-card 
         p 
@@ -2724,12 +3076,28 @@ footer
             padding: 0 15px 0 0
 
         .provide-info 
-            padding-right: 15px
-            padding-left: 15px
+            padding-right: 0
+            padding-left: 0
 
     .materials 
         .materials-info 
-            padding: 0 15px
+            padding: 0 
+            h2
+                font-size: 28px   
+                line-height: 28px            
+
+        .materials-desc
+            .container 
+                padding: 0 15px
+
+            .materials-info 
+                h2 
+                    font-size: 28px
+                    line-height: 28px
+
+    
+    
+
 
 
     .slider  
@@ -2757,6 +3125,8 @@ footer
             a
                 padding: 8px 30px
                 font-size: 16px
+                width: 221px
+
         .testimonials-slider 
             padding: 0
 
@@ -2781,6 +3151,11 @@ footer
 
         .testimonials-btn.prev 
             left: 0
+
+
+        .review-modal 
+            background: #FFFFFF
+            padding: 20px
     
 
     footer 

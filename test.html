@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.provide {
+    padding: 50px;
+    background: #f9f9f9;
+}
+
+.provide-desc {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px;
+    overflow: hidden; /* Очистка float */
+    border: 2px solid blue;
+}
+
+.provide-img {
+    float: left;
+    width: 300px;
+    margin-right: 40px;
+    border: 3px solid red;
+}
+
+.provide-img img {
+    width: 100%;
+    display: block;
+}
+
+.provide-info {
+    border: 2px solid green;
+    padding: 10px;
+    /* ВАЖНО: НЕТ overflow: hidden! */
+}
+
+.provide-info p {
+    margin-bottom: 15px;
+}
+
+.visible-text {
+    margin-bottom: 20px;
+}
+
+/* СКРЫТЫЙ ТЕКСТ */
+.card-text-full {
+    max-height: 0;
+    overflow: hidden; /* Нужен для скрытия */
+    opacity: 0;
+    transition: all 0.5s ease;
+    margin: 0;
+}
+
+.card-text-full.open {
+    max-height: 500px;
+    opacity: 1;
+    margin: 20px 0;
+    overflow: visible; /* КЛЮЧЕВОЕ! Чтобы текст обтекал */
+}
+
+.read-more-btn {
+    display: inline-block;
+    color: #E58411;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    border: 1px solid #E58411;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.read-more-btn:hover {
+    background: #E58411;
+    color: white;
+}
+</style>
+</head>
+<body>
+
+<section class="provide">
+    <div class="provide-desc">
+        <div class="provide-img">
+            <img src="image/provide.png" alt="image">
+        </div>
+        <div class="provide-info">
+            <p><strong>experiences</strong></p>
+            <h2>we provide you the best experience</h2>
+            
+            <div class="visible-text">
+                <p>You don't have to worry about the result because all of these interiors are made by people who are professionals in their fields with an elegant and lucurious style and with premium quality materials</p>
+            </div>
+
+            <div class="card-text-full">
+                <p>Our team of experienced designers and craftsmen work tirelessly to create interiors that blend functionality with aesthetic excellence. Every piece is carefully selected to ensure durability, comfort, and timeless elegance. We take pride in delivering spaces that inspire creativity and productivity, all while maintaining the highest standards of quality and craftsmanship.</p>
+                <p>This is additional text to show how text wraps around the image. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+
+            <a href="#" class="read-more-btn" onclick="toggleText(event)">More Info</a>
+        </div>
+    </div>
+</section>
+
+<script>
+function toggleText(e) {
+    e.preventDefault();
+    const card = document.querySelector('.card-text-full');
+    const btn = document.querySelector('.read-more-btn');
+    card.classList.toggle('open');
+    btn.textContent = card.classList.contains('open') ? 'Less Info' : 'More Info';
+}
+</script>
+
+</body>
+</html>

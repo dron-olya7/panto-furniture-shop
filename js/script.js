@@ -424,7 +424,7 @@ document.addEventListener('DOMContentLoaded', function () {
     colorButtons.forEach(btn => {
         btn.addEventListener('click', function (e) {
             e.stopPropagation();
-            
+
             // Находим родительский тултип
             const tooltip = this.closest('.tooltip');
             if (!tooltip) return;
@@ -448,4 +448,118 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('copyright').textContent = new Date().getFullYear();
+});
+
+// ==========================================
+// ФОРМА ОТЗЫВА
+// ==========================================
+
+window.openReviewForm = function() {
+    const overlay = document.getElementById('reviewOverlay');
+    if (overlay) {
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+};
+
+window.closeReviewForm = function() {
+    const overlay = document.getElementById('reviewOverlay');
+    if (overlay) {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+};
+
+window.setStar = function(value) {
+    const stars = document.querySelectorAll('.stars span');
+    stars.forEach((star, index) => {
+        star.classList.toggle('active', index < value);
+    });
+    window.currentRating = value;
+};
+
+window.previewPhoto = function(event) {
+    const file = event.target.files[0];
+    const preview = document.getElementById('photoPreview');
+    const placeholder = document.getElementById('photoPlaceholder');
+    const previewImg = document.getElementById('previewImage');
+    
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            previewImg.src = e.target.result;
+            preview.style.display = 'block';
+            placeholder.style.display = 'none';
+        };
+        reader.readAsDataURL(file);
+    }
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Закрыть по клику на фон
+    const overlay = document.getElementById('reviewOverlay');
+    if (overlay) {
+        overlay.addEventListener('click', function(e) {
+            if (e.target === this) {
+                window.closeReviewForm();
+            }
+        });
+    }
+
+    // Наведение на звезды
+    const stars = document.querySelectorAll('.stars span');
+    let currentRating = 0;
+
+    stars.forEach((star, index) => {
+        const value = index + 1;
+        
+        star.addEventListener('click', function() {
+            currentRating = value;
+            window.setStar(value);
+        });
+
+        star.addEventListener('mouseenter', function() {
+            window.setStar(value);
+        });
+
+        star.addEventListener('mouseleave', function() {
+            window.setStar(currentRating);
+        });
+    });
+
+    // Отправка формы с фото
+    const reviewForm = document.getElementById('reviewForm');
+    if (reviewForm) {
+        reviewForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('reviewName').value;
+            const role = document.getElementById('reviewRole').value;
+            const text = document.getElementById('reviewText').value;
+            const photo = document.getElementById('photoInput').files[0];
+            
+            const newReview = {
+                name: name,
+                role: role,
+                text: text,
+                rating: window.currentRating || 5,
+                photo: photo ? URL.createObjectURL(photo) : null
+            };
+            
+            console.log('Новый отзыв:', newReview);
+            
+            alert('Thank you for your review! 🎉');
+            window.closeReviewForm();
+            this.reset();
+            
+            // Сброс фото
+            document.getElementById('photoPreview').style.display = 'none';
+            document.getElementById('photoPlaceholder').style.display = 'flex';
+            document.getElementById('previewImage').src = '';
+            
+            // Сброс звезд
+            document.querySelectorAll('.stars span').forEach(star => star.classList.remove('active'));
+            window.currentRating = 0;
+        });
+    }
 });
